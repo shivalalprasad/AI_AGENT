@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
+/**
+ * Connects to MongoDB using the URI from environment variables.
+ * Exits process on failure.
+ */
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {

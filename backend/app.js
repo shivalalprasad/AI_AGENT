@@ -6,7 +6,6 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import config from './config.js';
-
 import chatRoutes from './routes/chatRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -15,7 +14,8 @@ dotenv.config();
 
 // Express app setup
 const app = express();
-app.use(cors());
+// Restrict CORS in production
+app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(express.json({ limit: config.uploadLimit }));
 app.use(morgan('dev'));
 

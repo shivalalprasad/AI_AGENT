@@ -1,22 +1,23 @@
 import { processChat } from '../services/chatService.js';
 import Conversation from '../models/Conversation.js';
 
+// Handle incoming chat messages
 export const handleChat = async (req, res, next) => {
   try {
     const { sessionId, message } = req.body;
     if (!sessionId || typeof sessionId !== 'string' || !message || typeof message !== 'string') {
-      console.warn('[Chat] Invalid input:', req.body);
+      // Validate input
       return res.status(400).json({ error: 'sessionId and message are required.' });
     }
-    console.log(`[Chat] Received message for session ${sessionId}: ${message}`);
+    // Process chat and get AI response
     const response = await processChat(sessionId, message);
     res.json(response);
   } catch (err) {
-    console.error('[Chat] Error:', err);
     next(err);
   }
 };
 
+// Get chat history for a session
 export const getHistory = async (req, res, next) => {
   try {
     const { sessionId } = req.params;

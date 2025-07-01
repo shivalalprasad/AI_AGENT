@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  console.error('[ErrorHandler]', err.stack || err.message);
+  // Centralized error handler for all API errors
   res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 };
 
